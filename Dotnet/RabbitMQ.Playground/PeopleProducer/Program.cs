@@ -54,7 +54,7 @@ namespace PeopleProducer
                     var metaData = channel.CreateBasicProperties();
                     metaData.Headers = new Dictionary<string, object>();
                     metaData.Headers.Add("Company", "GFT");
-                    metaData.Headers.Add("Domain", "CONSULTING");
+                    metaData.Headers.Add("Domain", "Business");
                     //Serializing to JSON!
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                     //Finally Publishing the message
