@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChatApp
 {
+    /// <summary>
+    /// Which Channels are supported...
+    /// </summary>
     public enum MessageChannel
     {
         Private,

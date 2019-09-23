@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace ChatApp
 {
+    /// <summary>
+    /// View Model to Bind to the MainWindow
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase, IDisposable
     {
         public MainWindowViewModel()
@@ -20,16 +23,33 @@ namespace ChatApp
             Connect = new RelayCommand(ConnectAction);
             Send = new RelayCommand(SendAction);
             Channels = Enum.GetValues(typeof(MessageChannel)).Cast<MessageChannel>();
-            Channel = MessageChannel.Business;
+            CurrentChannel = MessageChannel.Business;
             ChatManager = new ChatManager();
         }
 
+        /// <summary>
+        /// Chat manager, handles all communication with RabbitMQ
+        /// </summary>
         public ChatManager ChatManager { get; set; }
 
-        private bool _isConnected;
-
+        /// <summary>
+        /// Channels available to post message
+        /// </summary>
         public IEnumerable<MessageChannel> Channels { get; set; }
 
+        /// <summary>
+        /// Current Channel to Post Messages to
+        /// </summary>
+        public MessageChannel CurrentChannel { get; set; }
+
+        /// <summary>
+        /// Indicates if we are connected to the RabbitMQ
+        /// </summary>
+        private bool _isConnected;
+
+        /// <summary>
+        /// Indicates if we are connected to the RabbitMQ
+        /// </summary>
         public bool IsConnected
         {
             get { return _isConnected; }
@@ -41,15 +61,27 @@ namespace ChatApp
             }
         }
 
+        /// <summary>
+        /// Indicates if we are Disconnected from WPF
+        /// </summary>
         public bool IsDisconnected
         {
             get { return !_isConnected; }
         }
 
+        /// <summary>
+        /// Alias to USe when posting messages
+        /// </summary>
         public string Alias { get; set; }
 
+        /// <summary>
+        /// Message To send
+        /// </summary>
         private string _messageToSend;
 
+        /// <summary>
+        /// Message To send
+        /// </summary>
         public string MessageToSend
         {
             get { return _messageToSend; }
@@ -59,38 +91,51 @@ namespace ChatApp
             }
         }
 
-
+        /// <summary>
+        /// Connect Command
+        /// </summary>
         public ICommand Connect { get; set; }
 
+        /// <summary>
+        /// Connect Command Action
+        /// </summary>
         void ConnectAction()
         {
-            IsConnected = !IsConnected;
+            IsConnected = !IsConnected;            
             if(IsConnected)
             {                
-                ChatManager.ListenChannel(Channel);
-                ChatManager.Send(new ChatMessage("Just connected!", Channel, Alias));
+                //When connected, we add a listener on the target channel
+                ChatManager.StartChannelListening(CurrentChannel);
+                //And we send a message informing we are connected
+                ChatManager.SendChatMessage(new ChatMessage("Just connected!", CurrentChannel, Alias));
             }
             else
             {
-                ChatManager.StopChannel(Channel);
+                //When disconnecting we just Stop Listening
+                ChatManager.StopChannelListening(CurrentChannel);
             }
-
         }
+
+        /// <summary>
+        /// Send Command
+        /// </summary>
+        public ICommand Send { get; set; }
+
+        /// <summary>
+        /// Send Command Action
+        /// </summary>
         void SendAction()
         {
-            ChatManager.Send(new ChatMessage(MessageToSend, Channel, Alias));
+            ChatManager.SendChatMessage(new ChatMessage(MessageToSend, CurrentChannel, Alias));
             MessageToSend = string.Empty;
         }
 
+        /// <summary>
+        /// When Disposing, freeing resources up
+        /// </summary>
         public void Dispose()
         {
             ChatManager.Dispose();
         }
-
-        public ICommand Send { get; set; }
-
-        public MessageChannel Channel { get; set; }
-
-
     }
 }

@@ -28,6 +28,8 @@ namespace ChatApp
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            //When the window is closed, lets dispose the view Model
+            //Kill any Listeners for example, as they are runnign on another threads
             ((MainWindowViewModel)this.DataContext).Dispose();
         }
     }

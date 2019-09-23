@@ -26,7 +26,7 @@
         <Label x:Name="aliasLabel" Grid.Column="0" Grid.Row="0"  Content="Alias" IsEnabled="{Binding IsDisconnected}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBox x:Name="aliasTextBox"  Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" IsEnabled="{Binding IsDisconnected}" Text="{Binding Alias}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Label x:Name="channelLabel" Grid.Column="1" Grid.Row="0"  Content="Channel" IsEnabled="{Binding IsDisconnected}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox x:Name="channelComboBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Channels}" IsEnabled="{Binding IsDisconnected}" SelectedItem="{Binding Path=Channel}" >
+        <ComboBox x:Name="channelComboBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Channels}" IsEnabled="{Binding IsDisconnected}" SelectedItem="{Binding Path=CurrentChannel}" >
         </ComboBox>
         <Button x:Name="connectButton" Content="{Binding IsConnected,Converter={StaticResource ConnectConverter}}" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Stretch" Width="75" Command="{Binding Connect}" />
         <Label x:Name="chatLabel" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" IsEnabled="{Binding IsConnected, Mode=TwoWay}"  Content="Chat History" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
