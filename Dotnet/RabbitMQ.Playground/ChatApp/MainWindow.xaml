@@ -1,0 +1,53 @@
+﻿<Window x:Class="ChatApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed" >
+    <Window.Resources>
+        <local:ConnectButtonValueConverter x:Key="ConnectConverter"></local:ConnectButtonValueConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="aliasLabel" Grid.Column="0" Grid.Row="0"  Content="Alias" IsEnabled="{Binding IsDisconnected}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox x:Name="aliasTextBox"  Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" IsEnabled="{Binding IsDisconnected}" Text="{Binding Alias}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Label x:Name="channelLabel" Grid.Column="1" Grid.Row="0"  Content="Channel" IsEnabled="{Binding IsDisconnected}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="channelComboBox" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Channels}" IsEnabled="{Binding IsDisconnected}" SelectedItem="{Binding Path=Channel}" >
+        </ComboBox>
+        <Button x:Name="connectButton" Content="{Binding IsConnected,Converter={StaticResource ConnectConverter}}" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Stretch" Width="75" Command="{Binding Connect}" />
+        <Label x:Name="chatLabel" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" IsEnabled="{Binding IsConnected, Mode=TwoWay}"  Content="Chat History" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+        <ListView x:Name="chatView" HorizontalAlignment="Stretch" IsEnabled="{Binding IsConnected, Mode=TwoWay}" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding ChatManager.ChatHistory}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding TimeStamp}" FontWeight="Bold" />
+                        <TextBlock Text=">>" />
+                        <TextBlock Text="{Binding Sender}" Foreground="Blue" FontWeight="Bold" />
+                        <TextBlock Text="@" />
+                        <TextBlock Text="{Binding Channel}" Foreground="Gray" FontWeight="Bold" />
+                        <TextBlock Text=" : " />
+                        <TextBlock Text="{Binding Text}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label x:Name="messageLabel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" IsEnabled="{Binding IsConnected, Mode=TwoWay}" Content="Send a Message" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="messageTextbox" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" IsEnabled="{Binding IsConnected, Mode=TwoWay}" Grid.Row="5" TextWrapping="Wrap" Text="{Binding MessageToSend, Mode=TwoWay}" VerticalAlignment="Top" />
+        <Button x:Name="sendButton" Content="Send" Grid.Column="2" IsEnabled="{Binding IsConnected, Mode=TwoWay}" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Stretch" Width="75" Command="{Binding Send}" />
+
+    </Grid>
+</Window>

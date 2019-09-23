@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleProducer", "PeoplePro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleConsumerView", "PeopleConsumerView\PeopleConsumerView.csproj", "{0D31394D-4144-49D0-8DD6-ED65FC851C4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp", "ChatApp\ChatApp.csproj", "{0D38E3E2-1988-4ABF-8AA3-46D22F8DE21F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0D31394D-4144-49D0-8DD6-ED65FC851C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D31394D-4144-49D0-8DD6-ED65FC851C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D31394D-4144-49D0-8DD6-ED65FC851C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D38E3E2-1988-4ABF-8AA3-46D22F8DE21F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D38E3E2-1988-4ABF-8AA3-46D22F8DE21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D38E3E2-1988-4ABF-8AA3-46D22F8DE21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D38E3E2-1988-4ABF-8AA3-46D22F8DE21F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

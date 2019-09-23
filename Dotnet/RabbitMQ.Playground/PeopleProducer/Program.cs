@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace PeopleProducer
@@ -30,6 +31,9 @@ namespace PeopleProducer
                 using (var channel = connection.CreateModel())
                 {
                     var metaData = channel.CreateBasicProperties();
+                    metaData.Headers = new Dictionary<string, object>();
+                    metaData.Headers.Add("Company", "GFT");
+                    metaData.Headers.Add("Domain", "Business");
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                     channel.BasicPublish(exchange,
                                                   key,

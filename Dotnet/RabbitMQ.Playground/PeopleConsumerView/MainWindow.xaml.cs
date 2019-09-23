@@ -81,7 +81,7 @@ namespace PeopleConsumerView
                 }));
 
                 channel.BasicAck(args.DeliveryTag, false);
-
+   
                 /*        if (b % 2 == 0)
                         {
                             channel.BasicAck(args.DeliveryTag, false);

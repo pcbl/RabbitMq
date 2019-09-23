@@ -21,9 +21,11 @@ public class App
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
+           // channel.basicNack(delivery.getEnvelope().getDeliveryTag(),false,true );
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(),false);
             System.out.println(" [x] Received '" + message + "'");
         };
-        channel.basicConsume("java.queue", true, deliverCallback, consumerTag -> { });
+        channel.basicConsume("java.queue", false, deliverCallback, consumerTag -> { });
 
     }
 }
